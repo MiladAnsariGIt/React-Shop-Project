@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom"
+import { CartContext } from "../context/CartContext"
+import { useContext } from "react"
 
-function ProductCard({product,addToCart}){
+function ProductCard({product}){
+
+    const addToCart = useContext(CartContext);
 
     return(
          <div>

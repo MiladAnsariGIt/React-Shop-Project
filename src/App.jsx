@@ -6,6 +6,8 @@ import Products from "./pages/Products";
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 
+import { CartContext } from './context/CartContext';
+
 function App() {
 
   const [cart,setCart] = useState(() => {
@@ -25,7 +27,24 @@ function App() {
   }
 
   function removeFromCart(id){
-    setCart(prevCart => prevCart.filter(product => product.id !== id));
+    //setCart(prevCart => prevCart.filter(product => product.id !== id));
+    const productToRemove = cart.find(item => item.id === id);
+
+    if(productToRemove.quantity === 1)
+      setCart(prev => prev.filter(item => item.id !== id))
+
+    else{
+      if(productToRemove.quantity > 1)
+        setCart(prev => prev.map(item => (
+          item.id === id ? {...item,quantity:item.quantity-1} : item
+      )))
+    }
+   
+
+  }
+
+  function clearCart(){
+    setCart([]);
   }
 
 useEffect(() => {
@@ -34,21 +53,26 @@ useEffect(() => {
         "cart",
         JSON.stringify(cart)
     );
-
+    console.log(cart);
 }, [cart]);
 
   return(
     <div>
-      <Navbar
-        cart={cart}
-      />
+      <CartContext.Provider value={
+        {
+          cart,
+          addToCart,
+          removeFromCart,
+          clearCart
+        }
+      }>
+
+      <Navbar/>
 
       <Routes>
       <Route
           path='/products'
-         element={<Products
-                    addToCart={addToCart}  
-                />}
+         element={<Products/>}
        />
        <Route
         path='/products/:id'
@@ -62,6 +86,9 @@ useEffect(() => {
                 />}
        />
       </Routes>
+      <button onClick={clearCart}>Clear Cart</button>
+
+      </CartContext.Provider>
     </div>
   )
 }

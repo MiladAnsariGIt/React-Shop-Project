@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
-function Navbar({cart}){
+function Navbar(){
+
+    const {cart} = useContext(CartContext);
 
     const navStyle = ({ isActive }) => ({
     color: isActive ? "red" : "blue"

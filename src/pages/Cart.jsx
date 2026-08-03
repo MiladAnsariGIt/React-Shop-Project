@@ -5,16 +5,24 @@ function Cart({removeFromCart,cart}){
         return <h2>Your cart is empty.</h2>;
     }
 
-    return(
-        cart.map((product,index) => (
-            <div key={`${product.id}-${index}`}>
+    const totalPrice = cart.reduce((sum,product) =>{
+            return(sum+(product.price * product.quantity))
+        },0)
+
+    return( <div>
+        {cart.map((product) => (
+            <div key={`${product.id}`}>
                 <h2>{product.name}</h2>
-                <h3>💰{product.price}</h3>
+                {product.quantity > 1 ? <h3>📦 Quantity: {product.quantity}</h3> : null}
+                <h3>💰price: {product.price * product.quantity}</h3>
                 <p>📂{product.category}</p>
                 <p>⭐{product.rating}</p>
                 <button onClick={() => removeFromCart(product.id)}>Remove product</button>
             </div>
-        ))
+        ))}
+        <h3>total price: {totalPrice}</h3> 
+        
+        </div>
     )
 
 }
