@@ -1,8 +1,7 @@
 import products from "../data/products";
 import ProductCard from "../components/ProductCard";
 
-function Products({addToCart}){
-
+function Products(){
     return(
         <div>
             <h2>Products</h2>
@@ -10,7 +9,6 @@ function Products({addToCart}){
                 <ProductCard
                     key={product.id}
                     product={product}
-                    addToCart={addToCart}
                 />
             ))}
         </div>
