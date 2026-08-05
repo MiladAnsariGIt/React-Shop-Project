@@ -1,6 +1,11 @@
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
-function Cart({removeFromCart,cart}){
+function Cart(){
     
+    const {removeFromCart} = useContext(CartContext);
+    const {cart} = useContext(CartContext);
+
     if(cart.length === 0){
         return <h2>Your cart is empty.</h2>;
     }

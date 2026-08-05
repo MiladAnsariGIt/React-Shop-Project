@@ -4,7 +4,7 @@ import { useContext } from "react"
 
 function ProductCard({product}){
 
-    const addToCart = useContext(CartContext);
+    const {addToCart} = useContext(CartContext);
 
     return(
          <div>
