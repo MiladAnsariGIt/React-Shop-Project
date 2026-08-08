@@ -16,7 +16,9 @@ function Navbar(){
             {" | "}
             <NavLink to="/products" style={navStyle}>Products</NavLink>
             {" | "}
-            <NavLink to="/cart" style={navStyle}>🛒Cart{cart.length > 0 && `(${cart.length})`}</NavLink>
+            <NavLink to="/cart" style={navStyle}>🛒Cart{cart.length > 0 && `(${cart.reduce((sum,item)=>{
+                return sum + item.quantity;
+            },0)})`}</NavLink>
         </nav>
     )
 }
