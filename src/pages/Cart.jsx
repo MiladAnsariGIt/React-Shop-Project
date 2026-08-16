@@ -3,8 +3,7 @@ import { useContext } from "react";
 
 function Cart(){
     
-    const {removeFromCart} = useContext(CartContext);
-    const {cart} = useContext(CartContext);
+    const {removeFromCart , cart , increaseQuantity} = useContext(CartContext)
 
     if(cart.length === 0){
         return <h2>Your cart is empty.</h2>;
@@ -22,6 +21,7 @@ function Cart(){
                 <h3>💰price: {product.price * product.quantity}</h3>
                 <p>📂{product.category}</p>
                 <p>⭐{product.rating}</p>
+                <button onClick={() => increaseQuantity(product.id)}>+</button>
                 <button onClick={() => removeFromCart(product.id)}>Remove product</button>
             </div>
         ))}

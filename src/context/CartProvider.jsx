@@ -19,6 +19,13 @@ export function CartProvider({children}){
     }
   }
 
+  function increaseQuantity(id){
+    setCart(prevCart => prevCart.map(product => 
+      product.id === id ? {...product,quantity:product.quantity+1} : product
+    )
+  )
+  }
+
   function removeFromCart(id){
     const productToRemove = cart.find(item => item.id === id);
     if (!productToRemove) return;
@@ -53,7 +60,8 @@ return(
         cart,
         addToCart,
         removeFromCart,
-        clearCart
+        clearCart,
+        increaseQuantity
     }}>
         {children}
     </CartContext.Provider>
