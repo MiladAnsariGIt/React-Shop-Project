@@ -31,6 +31,30 @@
       "category": "Headphone",
       "rating": 4.7,
       "image": "🎧"
+    },
+    {
+      "id": 5,
+      "name": "Logitec Mous",
+      "price": 200,
+      "category": "Mouse",
+      "rating": 4.1,
+      "image": "🖱️"
+    },
+    {
+      "id": 6,
+      "name": "Headset Razer",
+      "price": 500,
+      "category": "Headphone",
+      "rating": 3.5,
+      "image": "🎧"
+    },
+    {
+      "id": 7,
+      "name": "Keybord Bloody",
+      "price": 250,
+      "category": "Keyboard",
+      "rating": 4.4,
+      "image": "⌨️"
     }
   ]
 }
