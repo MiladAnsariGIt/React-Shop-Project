@@ -2,6 +2,7 @@
 import { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { useFetch } from "../hooks/useFetch";
+import Loading from "../components/Loading";
 
 function Products(){
 
@@ -13,8 +14,9 @@ function Products(){
     const productsPerPage = 6;
 
     if(loading){
-        return <h2>Loading...</h2>
+        return <Loading/>
     }
+
     if(error){
         return <h2>{error}</h2>
     }
@@ -50,6 +52,7 @@ function Products(){
 
     return(
         <div>
+          <div className="product-controls">
             <input type="text"
              value={search} 
              onChange={e => {setSearch(e.target.value);
@@ -73,14 +76,20 @@ function Products(){
                 <option value="price-high">Price: High → Low</option>
                 <option value="rating-high">Rating: High → Low</option>
              </select>
+           </div>
             <br />
             <h2>Products</h2>
-           {currentProducts.length === 0 ? <h3>no products found!</h3> : currentProducts.map(product => (
-                <ProductCard
-                    key={product.id}
-                    product={product}
-                />
-            ))}
+                {currentProducts.length === 0 ? <h3>no products found!</h3> : 
+                ( 
+                    <div className="product-grid">
+                    {currentProducts.map(product => (
+                    <ProductCard
+                       key={product.id}
+                        product={product}
+                    />
+                 ))}
+                    </div>
+                )}
             <div>
             {Array.from({length: totalPages}).map((_,index) => (
                 <button key={index} onClick={() => setCurrentPage(index+1)}>{index+1}</button>
