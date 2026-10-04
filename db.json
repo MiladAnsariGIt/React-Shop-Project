@@ -1,60 +1,140 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Gaming Laptop",
       "price": 1200,
       "category": "Laptop",
       "rating": 4.8,
-      "image": "💻"
+      "image": "💻",
+      "description": "A powerful laptop suitable for programming, gaming and everyday use."
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Mechanical Keyboard redderagon",
       "price": 120,
       "category": "Keyboard",
       "rating": 4.6,
-      "image": "⌨️"
+      "image": "⌨️",
+      "description": "A powerful Keyboard suitable for programming, gaming and everyday use."
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Gaming Mouse",
       "price": 70,
       "category": "Mouse",
       "rating": 4.4,
-      "image": "🖱️"
+      "image": "🖱️",
+      "description": "A powerful Mouse suitable for programming, gaming and everyday use."
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Headset",
       "price": 150,
       "category": "Headphone",
       "rating": 4.7,
-      "image": "🎧"
+      "image": "🎧",
+      "description": "A powerful Headset suitable for programming, gaming and everyday use."
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Logitec Mous",
       "price": 200,
       "category": "Mouse",
       "rating": 4.1,
-      "image": "🖱️"
+      "image": "🖱️",
+      "description": "A powerful Mous suitable for programming, gaming and everyday use."
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Headset Razer",
       "price": 500,
       "category": "Headphone",
       "rating": 3.5,
-      "image": "🎧"
+      "image": "🎧",
+      "description": "A powerful Headset suitable for programming, gaming and everyday use."
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Keybord Bloody",
       "price": 250,
       "category": "Keyboard",
       "rating": 4.4,
-      "image": "⌨️"
+      "image": "⌨️",
+      "description": "A powerful Keybord suitable for programming, gaming and everyday use."
     }
-  ]
+  ],
+  "orders": [
+    {
+      "customer": {
+        "fullName": "Milad",
+        "email": "myeditmail2025@gmail.com",
+        "address": "Znj",
+        "phone": "0990",
+        "city": "Znj",
+        "postalCode": "421423424"
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Gaming Mouse",
+          "price": 70,
+          "category": "Mouse",
+          "rating": 4.4,
+          "image": "🖱️",
+          "description": "A powerful Mouse suitable for programming, gaming and everyday use.",
+          "quantity": 3
+        },
+        {
+          "id": "2",
+          "name": "Mechanical Keyboard redderagon",
+          "price": 120,
+          "category": "Keyboard",
+          "rating": 4.6,
+          "image": "⌨️",
+          "description": "A powerful Keyboard suitable for programming, gaming and everyday use.",
+          "quantity": 2
+        }
+      ],
+      "total": 450,
+      "createdAt": "2026-10-04T08:00:52.543Z",
+      "id": "N7l7b-Rw3VQ"
+    },
+    {
+      "customer": {
+        "fullName": "Milad",
+        "email": "myeditmail2025@gmail.com",
+        "address": "Znj",
+        "phone": "0990",
+        "city": "Znj",
+        "postalCode": "421423424"
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Gaming Mouse",
+          "price": 70,
+          "category": "Mouse",
+          "rating": 4.4,
+          "image": "🖱️",
+          "description": "A powerful Mouse suitable for programming, gaming and everyday use.",
+          "quantity": 3
+        },
+        {
+          "id": "2",
+          "name": "Mechanical Keyboard redderagon",
+          "price": 120,
+          "category": "Keyboard",
+          "rating": 4.6,
+          "image": "⌨️",
+          "description": "A powerful Keyboard suitable for programming, gaming and everyday use.",
+          "quantity": 2
+        }
+      ],
+      "total": 450,
+      "createdAt": "2026-10-04T08:01:29.877Z",
+      "id": "l9fWiCqxVHE"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

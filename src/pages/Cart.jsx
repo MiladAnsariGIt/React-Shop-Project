@@ -1,35 +1,100 @@
-import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
-function Cart(){
-    
-    const {removeFromCart , cart , increaseQuantity} = useContext(CartContext)
+function Cart() {
+  const {
+    cart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    clearCart,
+  } = useContext(CartContext);
 
-    if(cart.length === 0){
-        return <h2>Your cart is empty.</h2>;
-    }
+  const navigate = useNavigate();
 
-    const totalPrice = cart.reduce((sum,product) =>{
-            return(sum+(product.price * product.quantity))
-        },0)
+  if (cart.length === 0) {
+    return (
+      <div className="empty-cart">
+        <h2>Your cart is empty.</h2>
+      </div>
+    );
+  }
 
-    return( <div>
+  const subtotal = cart.reduce(
+    (sum, product) => sum + product.price * product.quantity,
+    0,
+  );
+
+  return (
+    <div className="cart-page">
+      <h1>🛒 Shopping Cart</h1>
+
+      <div className="cart-items">
         {cart.map((product) => (
-            <div key={`${product.id}`}>
-                <h2>{product.name}</h2>
-                {product.quantity > 1 ? <h3>📦 Quantity: {product.quantity}</h3> : null}
-                <h3>💰price: {product.price * product.quantity}</h3>
-                <p>📂{product.category}</p>
-                <p>⭐{product.rating}</p>
-                <button onClick={() => increaseQuantity(product.id)}>+</button>
-                <button onClick={() => removeFromCart(product.id)}>Remove product</button>
-            </div>
-        ))}
-        <h3>total price: {totalPrice}</h3> 
-        
-        </div>
-    )
+          <div className="cart-item" key={product.id}>
+            <div className="cart-item-image">{product.image}</div>
 
+            <div className="cart-item-info">
+              <h2>{product.name}</h2>
+
+              <p>{product.category}</p>
+
+              <p>⭐ {product.rating}</p>
+            </div>
+
+            <div className="cart-item-price">
+              <strong>${product.price * product.quantity}</strong>
+
+              <div className="quantity-controls">
+                <button onClick={() => decreaseQuantity(product.id)}>−</button>
+
+                <span>{product.quantity}</span>
+
+                <button onClick={() => increaseQuantity(product.id)}>+</button>
+              </div>
+
+              <button
+                className="remove-button"
+                onClick={() => removeFromCart(product.id)}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="cart-summary">
+        <h2>Order Summary</h2>
+
+        <div className="summary-row">
+          <span>Subtotal</span>
+          <strong>${subtotal}</strong>
+        </div>
+
+        <div className="summary-row">
+          <span>Shipping</span>
+          <span>Free</span>
+        </div>
+
+        <hr />
+
+        <div className="summary-total">
+          <span>Total</span>
+          <strong>${subtotal}</strong>
+        </div>
+
+        <div className="cart-actions">
+          <button onClick={clearCart} className="clear-cart-button">
+            Clear Cart
+          </button>
+
+          <button className="checkout-button" onClick={() => navigate('/checkout')}>Checkout</button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Cart
+export default Cart;

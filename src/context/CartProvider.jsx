@@ -30,15 +30,13 @@ export function CartProvider({children}){
     const productToRemove = cart.find(item => item.id === id);
     if (!productToRemove) return;
     
-    if(productToRemove.quantity === 1)
       setCart(prev => prev.filter(item => item.id !== id))
-
-    else{
-      if(productToRemove.quantity > 1)
-        setCart(prev => prev.map(item => (
-          item.id === id ? {...item,quantity:item.quantity-1} : item
-      )))
     }
+
+  function decreaseQuantity(id){
+    setCart(prev => prev.map(item => (
+      item.id === id ? {...item,quantity:item.quantity-1} : item
+    )).filter(product => product.quantity >0))
   }
 
  function clearCart(){
@@ -61,7 +59,8 @@ return(
         addToCart,
         removeFromCart,
         clearCart,
-        increaseQuantity
+        increaseQuantity,
+        decreaseQuantity
     }}>
         {children}
     </CartContext.Provider>
