@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { createOrder } from "../services/api";
 
 function Checkout() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ function Checkout() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { cart, clearCart } = useContext(CartContext);
+  const [isSubmiting,setIsSubmitting] = useState(false);
+  const [submitError,setSubmitError] = useState("");
 
   const total = cart.reduce(
     (sum, product) => sum + product.quantity * product.price,
@@ -44,21 +47,20 @@ function Checkout() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      });
+      setIsSubmitting(true);
+      setSubmitError("");
 
-      if (!response.ok) throw new Error("Failed to create order");
-
-      const createdOrder = await response.json();
+      const createdOrder = await createOrder(order);
+      
       console.log(createdOrder);
 
       clearCart();
       navigate("/order-success");
     } catch (error) {
       console.log(error);
+      setSubmitError("Failed to place order. Please try again.")
+    } finally{
+      setIsSubmitting(false);
     }
   }
 
@@ -155,7 +157,8 @@ function Checkout() {
             <p className="error-message">{errors.postalCode}</p>
           )}
         </div>
-        <button type="submit">Place Order</button>
+        <button type="submit" disabled={isSubmiting}>{isSubmiting ? "Placing order..." : "Place Oreder"}</button>
+        {submitError && <p className="error-message">{submitError}</p>}
       </form>
 
       <div className="order-summary">

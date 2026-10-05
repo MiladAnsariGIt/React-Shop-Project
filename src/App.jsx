@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Products from "./pages/Products";
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
-import Checkout from './pages/Chechout';
+import Checkout from './pages/Checkout';
 import OrderSuccsess from "./pages/OrderSuccsess";
 
 import { CartProvider } from './context/CartProvider';

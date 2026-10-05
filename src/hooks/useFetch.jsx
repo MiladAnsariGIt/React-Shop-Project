@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 
-export function useFetch(url){
+export function useFetch(fetchFunction){
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -14,12 +14,8 @@ export function useFetch(url){
               setLoading(true);
               setError("");
 
-              const response = await fetch(url);
-              
-              if(!response.ok)
-                throw new Error("Server Error");
+              const result = await fetchFunction();
 
-              const result = await response.json();
               setData(result);
             }
             catch(err){
@@ -31,7 +27,7 @@ export function useFetch(url){
         }
 
         fetchData();
-    }, [url]);   
+    }, [fetchFunction]);   
 
     return{
       data,

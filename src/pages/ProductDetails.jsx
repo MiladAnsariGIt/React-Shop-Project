@@ -1,16 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import { getProduct } from "../services/api";
 import { CartContext } from "../context/CartContext";
-import { useContext } from "react";
+import { useContext,useCallback } from "react";
 import Loading from "../components/Loading";
 
 function ProductDetails() {
 
   const { id } = useParams();
 
-  const { data, loading, error } = useFetch(
-    `http://localhost:3000/products/${id}`,
-  );
+  const fetchProduct = useCallback(() => {
+    return  getProduct(id);
+  },[id])
+
+  const { data, loading, error } = useFetch(fetchProduct);
 
   const {addToCart} = useContext(CartContext);
 

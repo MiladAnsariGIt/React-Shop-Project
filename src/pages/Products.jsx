@@ -2,11 +2,12 @@
 import { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { useFetch } from "../hooks/useFetch";
+import { getProducts } from "../services/api";
 import Loading from "../components/Loading";
 
 function Products(){
 
-    const {data,loading,error} = useFetch("http://localhost:3000/products");
+    const {data,loading,error} = useFetch(getProducts);
     const [search,setSearch] = useState("");
     const [category,setCategory] = useState("all");
     const [sort,setSort] = useState("default");
