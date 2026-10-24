@@ -4,10 +4,13 @@ import ProductCard from "../components/ProductCard";
 import { useFetch } from "../hooks/useFetch";
 import { getProducts } from "../services/api";
 import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 
 function Products(){
 
-    const {data,loading,error} = useFetch(getProducts);
+const { data, loading, error, refetch } =
+  useFetch(getProducts, []);
+  
     const [search,setSearch] = useState("");
     const [category,setCategory] = useState("all");
     const [sort,setSort] = useState("default");
@@ -18,9 +21,14 @@ function Products(){
         return <Loading/>
     }
 
-    if(error){
-        return <h2>{error}</h2>
-    }
+    if (error) {
+  return (
+    <ErrorMessage
+      message={error}
+      onRetry={refetch}
+    />
+  );
+}
 
     const filteredData = data.filter(product => {
 

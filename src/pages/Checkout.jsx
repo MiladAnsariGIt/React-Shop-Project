@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../services/api";
+import { Link } from "react-router-dom";
 
 function Checkout() {
   const [formData, setFormData] = useState({
@@ -16,8 +17,8 @@ function Checkout() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { cart, clearCart } = useContext(CartContext);
-  const [isSubmiting,setIsSubmitting] = useState(false);
-  const [submitError,setSubmitError] = useState("");
+  const [isSubmiting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const total = cart.reduce(
     (sum, product) => sum + product.quantity * product.price,
@@ -51,15 +52,15 @@ function Checkout() {
       setSubmitError("");
 
       const createdOrder = await createOrder(order);
-      
+
       console.log(createdOrder);
 
       clearCart();
       navigate("/order-success");
     } catch (error) {
       console.log(error);
-      setSubmitError("Failed to place order. Please try again.")
-    } finally{
+      setSubmitError("Failed to place order. Please try again.");
+    } finally {
       setIsSubmitting(false);
     }
   }
@@ -79,7 +80,12 @@ function Checkout() {
   }
 
   if (cart.length === 0) {
-    return <p>Your cart is empty</p>;
+    return (
+      <div className="empty-cart">
+        <h2>Your cart is empty!</h2>
+        <Link to="/products">Browse Products</Link>
+      </div>
+    );
   }
 
   return (
@@ -157,7 +163,9 @@ function Checkout() {
             <p className="error-message">{errors.postalCode}</p>
           )}
         </div>
-        <button type="submit" disabled={isSubmiting}>{isSubmiting ? "Placing order..." : "Place Oreder"}</button>
+        <button type="submit" disabled={isSubmiting}>
+          {isSubmiting ? "Placing order..." : "Place Oreder"}
+        </button>
         {submitError && <p className="error-message">{submitError}</p>}
       </form>
 

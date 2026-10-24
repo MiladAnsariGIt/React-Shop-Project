@@ -574,3 +574,47 @@
   margin-top: 20px;
   font-size: 22px;
 }
+
+.error-message {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid #e5a5a5;
+  border-radius: 10px;
+}
+
+.error-message p {
+  color: #c62828;
+  margin-bottom: 16px;
+}
+
+.error-message button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.empty-cart {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.empty-cart p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.empty-cart a {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 6px;
+  background: #222;
+  color: white;
+  text-decoration: none;
+}

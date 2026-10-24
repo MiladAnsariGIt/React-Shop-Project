@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Cart() {
   const {
@@ -16,7 +17,9 @@ function Cart() {
   if (cart.length === 0) {
     return (
       <div className="empty-cart">
-        <h2>Your cart is empty.</h2>
+        <h2>Your cart is empty!</h2>
+        <p>You haven't added any products yet.</p>
+        <Link to="/products">Continue Shopping</Link>
       </div>
     );
   }
@@ -90,7 +93,12 @@ function Cart() {
             Clear Cart
           </button>
 
-          <button className="checkout-button" onClick={() => navigate('/checkout')}>Checkout</button>
+          <button
+            className="checkout-button"
+            onClick={() => navigate("/checkout")}
+          >
+            Checkout
+          </button>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { getProduct } from "../services/api";
 import { CartContext } from "../context/CartContext";
 import { useContext,useCallback } from "react";
 import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 
 function ProductDetails() {
 
@@ -13,13 +14,21 @@ function ProductDetails() {
     return  getProduct(id);
   },[id])
 
-  const { data, loading, error } = useFetch(fetchProduct);
+const { data, loading, error, refetch } =
+  useFetch(fetchProduct, null);
 
   const {addToCart} = useContext(CartContext);
 
   if (loading) return <Loading />;
 
-  if (error) return <h2>{error}</h2>;
+  if (error) return <ErrorMessage
+    message={error}
+    onRetry={refetch}
+  />
+
+  if (!data) {
+  return <h2>Product not found!</h2>;
+}
 
   return (
     <div className="product-details">
