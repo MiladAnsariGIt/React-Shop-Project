@@ -35,8 +35,8 @@ export function CartProvider({children}){
 
   function decreaseQuantity(id){
     setCart(prev => prev.map(item => (
-      item.id === id ? {...item,quantity:item.quantity-1} : item
-    )).filter(product => product.quantity >0))
+      item.id === id ? {...item,quantity:item.quantity - 1} : item
+    )).filter(product => product.quantity > 0))
   }
 
  function clearCart(){
