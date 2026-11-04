@@ -6,6 +6,8 @@ type Product = {
   price: number;
   category: "Gaming" | "Office" | "Accessories";
 };
+type CategoryFilter = "All" | Product["category"];
+
 
 type StockStatus = "available" | "out-of-stock" | "coming-soon";
 
@@ -74,22 +76,68 @@ function Cart() {
   );
 }
 
-function SearchBox() {
-  const [text, setText] = useState<string>("");
+type SearchBoxProps = {
+  onSearch: (text: string) => void;
+};
+
+function SearchBox({ onSearch }: SearchBoxProps) {
+  const [text, setText] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setText(event.target.value);
   }
 
-  function clearInput(){
-    setText("");
+  return (
+    <div>
+      <input value={text} onChange={handleChange} />
+      <button onClick={() => onSearch(text)}>Search</button>
+    </div>
+  );
+}
+
+function Products() {
+  const products: Product[] = [
+    { id: 1, name: "Gaming Mouse", price: 50, category: "Gaming" },
+    { id: 2, name: "Office Keyboard", price: 30, category: "Office" },
+    { id: 3, name: "Gaming Headset", price: 80, category: "Gaming" },
+  ];
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [searchText, setSearchText] = useState<string>("");
+  const [category, setCategory] = useState<CategoryFilter>("All");
+
+  function handleSearch(text: string) {
+    setSearchText(text);
+    filterProducts(text,category);
+  }
+
+  function filterProducts(text: string,selectCategory: CategoryFilter) {
+    setFilteredProducts(products.filter
+      (product => product.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+        && (selectCategory === "All" || product.category === selectCategory))
+    )
+  }
+
+  function filterByCategory(value: CategoryFilter) {
+    setCategory(value);
+    filterProducts(searchText,value);
   }
 
   return (
     <div>
-      <input value={text} onChange={handleChange} />
-      <p>{text}</p>
-      <button onClick={clearInput}>Clear Input</button>
+      <SearchBox onSearch={handleSearch}></SearchBox>
+      <select value={category} onChange={(event) => filterByCategory(event.target.value as Product["category"])}>
+            <option value="All">All</option>
+            <option value="Gaming">Gaming</option>
+            <option value="Office">Office</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+      {filteredProducts.map(product => (
+        <div key={product.id}>
+          <p>name: {product.name}</p>
+          <p>price: {product.price}</p>
+        </div>
+
+      ))}
     </div>
-  );
+  )
 }
