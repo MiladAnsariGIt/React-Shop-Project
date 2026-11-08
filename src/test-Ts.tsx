@@ -68,8 +68,10 @@ function isString(value: string | number){
 }
 
 type Product = {
+    id: number;
     name: string;
     price: number;
+    category: string;
 };
 
 type Discount = {
@@ -79,16 +81,18 @@ type Discount = {
 type DiscountedProduct = Product & Discount;
 
 const item: DiscountedProduct = {
+    id:3,
     name: "Mous",
     price: 1200,
-    discountPercent: 10
+    discountPercent: 10,
+    category: "gaming"
 }
 
 function identify<T>(value: T): T{
     return value;
 }
 
-function getLast<T>(value: T[]): T{
+function getLast<T>(value: T[]): T | undefined{
     return value[value.length - 1];
 }
 
@@ -113,3 +117,5 @@ const prices: ProductPrices = {
     mouse: 40,
     keyboard: 30
 }
+
+type ProductKeys = keyof Product;
